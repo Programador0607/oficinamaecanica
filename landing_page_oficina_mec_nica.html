@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AutoTech - Centro Automotivo & Oficina Mecânica</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              black: '#121212',
+              dark: '#1A1A1A',
+              card: '#242424',
+              border: '#333333',
+              red: '#DC2626',
+              redHover: '#B91C1C',
+              silver: '#9CA3AF'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts & Font Awesome Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #121212;
+      color: #F3F4F6;
+    }
+    
+    .glass-nav {
+      background: rgba(18, 18, 18, 0.9);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    
+    .glass-card {
+      background: rgba(30, 30, 30, 0.7);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .glass-card:hover {
+      border-color: rgba(220, 38, 38, 0.4);
+      transform: translateY(-4px);
+    }
+
+    /* Pulso no botão do WhatsApp */
+    @keyframes pulse-ring {
+      0% { transform: scale(0.95); opacity: 0.8; }
+      50% { transform: scale(1.15); opacity: 0.4; }
+      100% { transform: scale(0.95); opacity: 0.8; }
+    }
+    .whatsapp-pulse {
+      animation: pulse-ring 2s infinite ease-in-out;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #121212;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #374151;
+      border-radius: 5px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #DC2626;
+    }
+  </style>
+</head>
+<body class="bg-brand-black text-gray-100 antialiased selection:bg-brand-red selection:text-white">
+
+  <!-- CONFIGURAÇÕES FACILMENTE PERSONALIZÁVEIS -->
+  <script>
+    const CONFIG_OFICINA = {
+      nome: "AutoTech Centro Automotivo",
+      whatsappNumber: "5511999999999", // Número no formato internacional (DDI + DDD + Numero)
+      telefone: "(11) 99999-9999",
+      endereco: "Av. das Nações Unidas, 1000 - Pinheiros, São Paulo - SP",
+      horarioSemana: "Segunda a Sexta: 08h às 18h",
+      horarioSabado: "Sábado: 08h às 12h"
+    };
+  </script>
+
+  <!-- HEADER / CABEÇALHO FIXO -->
+  <header class="fixed top-0 left-0 w-full z-50 glass-nav border-b border-brand-border transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- LOGO -->
+      <a href="#inicio" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 bg-brand-red rounded-lg flex items-center justify-center text-white text-xl font-black shadow-lg shadow-red-900/40 group-hover:bg-red-700 transition">
+          <i class="fa-solid fa-wrench"></i>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-xl font-extrabold tracking-wider uppercase text-white">Auto<span class="text-brand-red">Tech</span></span>
+          <span class="text-[10px] text-gray-400 tracking-widest uppercase font-semibold">Centro Automotivo</span>
+        </div>
+      </a>
+
+      <!-- MENU DESKTOP -->
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium">
+        <a href="#inicio" class="hover:text-brand-red transition-colors">Início</a>
+        <a href="#servicos" class="hover:text-brand-red transition-colors">Serviços</a>
+        <a href="#sobre" class="hover:text-brand-red transition-colors">Sobre Nós</a>
+        <a href="#diferenciais" class="hover:text-brand-red transition-colors">Diferenciais</a>
+        <a href="#galeria" class="hover:text-brand-red transition-colors">Galeria</a>
+        <a href="#avaliacoes" class="hover:text-brand-red transition-colors">Avaliações</a>
+        <a href="#contato" class="hover:text-brand-red transition-colors">Contato</a>
+      </nav>
+
+      <!-- BOTÃO CTA DESKTOP -->
+      <div class="hidden md:flex items-center">
+        <a href="#orcamento" class="bg-brand-red hover:bg-brand-redHover text-white px-5 py-2.5 rounded-lg font-semibold text-sm transition-all shadow-md shadow-red-900/30 flex items-center gap-2">
+          <i class="fa-brands fa-whatsapp text-lg"></i>
+          Solicitar Orçamento
+        </a>
+      </div>
+
+      <!-- BOTÃO MENU MOBILE -->
+      <button id="mobile-menu-btn" class="md:hidden text-gray-300 hover:text-white p-2 focus:outline-none" aria-label="Abrir Menu">
+        <i class="fa-solid fa-bars text-2xl"></i>
+      </button>
+    </div>
+
+    <!-- MENU MOBILE DROPDOWN -->
+    <div id="mobile-menu" class="hidden md:hidden bg-brand-dark border-b border-brand-border px-4 pt-2 pb-6 space-y-3">
+      <a href="#inicio" class="mobile-link block py-2 border-b border-gray-800/50 hover:text-brand-red">Início</a>
+      <a href="#servicos" class="mobile-link block py-2 border-b border-gray-800/50 hover:text-brand-red">Serviços</a>
+      <a href="#sobre" class="mobile-link block py-2 border-b border-gray-800/50 hover:text-brand-red">Sobre Nós</a>
+      <a href="#diferenciais" class="mobile-link block py-2 border-b border-gray-800/50 hover:text-brand-red">Diferenciais</a>
+      <a href="#galeria" class="mobile-link block py-2 border-b border-gray-800/50 hover:text-brand-red">Galeria</a>
+      <a href="#avaliacoes" class="mobile-link block py-2 border-b border-gray-800/50 hover:text-brand-red">Avaliações</a>
+      <a href="#contato" class="mobile-link block py-2 hover:text-brand-red">Contato</a>
+      
+      <a href="#orcamento" class="mobile-link mt-4 w-full bg-brand-red text-center text-white py-3 rounded-lg font-bold flex items-center justify-center gap-2">
+        <i class="fa-brands fa-whatsapp"></i> Solicitar Orçamento
+      </a>
+    </div>
+  </header>
+
+  <!-- 1. HERO SECTION -->
+  <section id="inicio" class="relative min-h-screen flex items-center pt-20 overflow-hidden bg-brand-black">
+    <div class="absolute inset-0 z-0">
+      <img src="https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=2000&q=80" 
+           alt="Oficina Mecânica Profissional" 
+           class="w-full h-full object-cover object-center opacity-30 scale-105 transition duration-1000">
+      <div class="absolute inset-0 bg-gradient-to-t from-brand-black via-brand-black/70 to-transparent"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-brand-black via-brand-black/80 to-transparent"></div>
+    </div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
+      <div class="max-w-3xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-red/10 border border-brand-red/30 text-brand-red text-xs sm:text-sm font-semibold mb-6">
+          <i class="fa-solid fa-shield-halved"></i> Centro Especializado Multimarcas
+        </div>
+        
+        <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black text-white leading-tight tracking-tight mb-6">
+          Seu carro em <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-red via-red-500 to-amber-500">boas mãos.</span>
+        </h1>
+        
+        <p class="text-lg sm:text-xl text-gray-300 font-normal leading-relaxed mb-8 max-w-2xl">
+          Manutenção, diagnóstico e serviços automotivos com qualidade, transparência e confiança.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="#orcamento" class="bg-brand-red hover:bg-brand-redHover text-white px-8 py-4 rounded-xl font-bold text-base transition-all shadow-lg shadow-red-900/40 text-center flex items-center justify-center gap-3">
+            <i class="fa-brands fa-whatsapp text-xl"></i>
+            Solicitar Orçamento
+          </a>
+          <a href="#servicos" class="bg-gray-800/80 hover:bg-gray-700 text-gray-200 border border-gray-700 px-8 py-4 rounded-xl font-semibold text-base transition-all text-center flex items-center justify-center gap-2">
+            Conhecer Nossos Serviços
+            <i class="fa-solid fa-arrow-right text-sm"></i>
+          </a>
+        </div>
+
+        <div class="mt-12 pt-8 border-t border-gray-800/80 grid grid-cols-2 sm:grid-cols-3 gap-6">
+          <div>
+            <div class="text-2xl font-bold text-white">100%</div>
+            <div class="text-xs text-gray-400">Transparência nos Orçamentos</div>
+          </div>
+          <div>
+            <div class="text-2xl font-bold text-white">Scanner</div>
+            <div class="text-xs text-gray-400">Diagnóstico Computadorizado</div>
+          </div>
+          <div class="col-span-2 sm:col-span-1">
+            <div class="text-2xl font-bold text-white">Garantia</div>
+            <div class="text-xs text-gray-400">Serviços e Peças Homologadas</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. SERVIÇOS -->
+  <section id="servicos" class="py-24 bg-brand-dark relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <h2 class="text-xs font-bold uppercase tracking-widest text-brand-red mb-2">Especialidades</h2>
+        <p class="text-3xl sm:text-4xl font-extrabold text-white">Nossos Serviços Automotivos</p>
+        <p class="text-gray-400 mt-4 text-base">Manutenção preventiva e corretiva com tecnologia avançada e diagnósticos precisos.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- Serviço 1 -->
+        <div class="glass-card rounded-2xl p-6 transition-all duration-300 flex flex-col justify-between group">
+          <div>
+            <div class="w-14 h-14 bg-red-950/50 border border-brand-red/30 rounded-xl flex items-center justify-center text-brand-red text-2xl mb-6 group-hover:scale-110 transition-transform">
+              <i class="fa-solid fa-clipboard-check"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-3">Revisão Preventiva</h3>
+            <p class="text-gray-400 text-sm leading-relaxed mb-6">Verificação completa dos componentes de segurança do seu carro antes de pegar a estrada.</p>
+          </div>
+          <a href="#orcamento" onclick="preencherServico('Revisão Preventiva')" class="inline-flex items-center gap-2 text-brand-red hover:text-white font-semibold text-sm transition-colors">
+            Solicitar Orçamento <i class="fa-solid fa-chevron-right text-xs"></i>
+          </a>
+        </div>
+
+        <!-- Serviço 2 -->
+        <div class="glass-card rounded-2xl p-6 transition-all duration-300 flex flex-col justify-between group">
+          <div>
+            <div class="w-14 h-14 bg-red-950/50 border border-brand-red/30 rounded-xl flex items-center justify-center text-brand-red text-2xl mb-6 group-hover:scale-110 transition-transform">
+              <i class="fa-solid fa-oil-can"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-3">Troca de Óleo e Filtros</h3>
+            <p class="text-gray-400 text-sm leading-relaxed mb-6">Substituição de lubrificantes e filtros com especificações oficiais da montadora.</p>
+          </div>
+          <a href="#orcamento" onclick="preencherServico('Troca de Óleo e Filtros')" class="inline-flex items-center gap-2 text-brand-red hover:text-white font-semibold text-sm transition-colors">
+            Solicitar Orçamento <i class="fa-solid fa-chevron-right text-xs"></i>
+          </a>
+        </div>
+
+        <!-- Serviço 3 -->
+        <div class="glass-card rounded-2xl p-6 transition-all duration-300 flex flex-col justify-between group">
+          <div>
+            <div class="w-14 h-14 bg-red-950/50 border border-brand-red/30 rounded-xl flex items-center justify-center text-brand-red text-2xl mb-6 group-hover:scale-110 transition-transform">
+              <i class="fa-solid fa-laptop-code"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-3">Diagnóstico Eletrônico</h3>
+            <p class="text-gray-400 text-sm leading-relaxed mb-6">Mapeamento de falhas em injeção eletrônica, ABS e módulos com scanner moderno.</p>
+          </div>
+          <a href="#orcamento" onclick="preencherServico('Diagnóstico Eletrônico')" class="inline-flex items-center gap-2 text-brand-red hover:text-white font-semibold text-sm transition-colors">
+            Solicitar Orçamento <i class="fa-solid fa-chevron-right text-xs"></i>
+          </a>
+        </div>
+
+        <!-- Serviço 4 -->
+        <div class="glass-card rounded-2xl p-6 transition-all duration-300 flex flex-col justify-between group">
+          <div>
+            <div class="w-14 h-14 bg-red-950/50 border border-brand-red/30 rounded-xl flex items-center justify-center text-brand-red text-2xl mb-6 group-hover:scale-110 transition-transform">
+              <i class="fa-solid fa-compact-disc"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-3">Manutenção de Freios</h3>
+            <p class="text-gray-400 text-sm leading-relaxed mb-6">Troca de pastilhas, discos, fluido de freio e verificação do sistema hidráulico.</p>
+          </div>
+          <a href="#orcamento" onclick="preencherServico('Manutenção de Freios')" class="inline-flex items-center gap-2 text-brand-red hover:text-white font-semibold text-sm transition-colors">
+            Solicitar Orçamento <i class="fa-solid fa-chevron-right text-xs"></i>
+          </a>
+        </div>
+
+        <!-- Serviço 5 -->
+        <div class="glass-card rounded-2xl p-6 transition-all duration-300 flex flex-col justify-between group">
+          <div>
+            <div class="w-14 h-14 bg-red-950/50 border border-brand-red/30 rounded-xl flex items-center justify-center text-brand-red text-2xl mb-6 group-hover:scale-110 transition-transform">
+              <i class="fa-solid fa-car-side"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-3">Suspensão e Direção</h3>
+            <p class="text-gray-400 text-sm leading-relaxed mb-6">Troca de amortecedores, molas, buchas, caixa de direção e pivôs.</p>
+          </div>
+          <a href="#orcamento" onclick="preencherServico('Suspensão e Direção')" class="inline-flex items-center gap-2 text-brand-red hover:text-white font-semibold text-sm transition-colors">
+            Solicitar Orçamento <i class="fa-solid fa-chevron-right text-xs"></i>
+          </a>
+        </div>
+
+        <!-- Serviço 6 -->
+        <div class="glass-card rounded-2xl p-6 transition-all duration-300 flex flex-col justify-between group">
+          <div>
+            <div class="w-14 h-14 bg-red-950/50 border border-brand-red/30 rounded-xl flex items-center justify-center text-brand-red text-2xl mb-6 group-hover:scale-110 transition-transform">
+              <i class="fa-solid fa-gears"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-3">Manutenção de Motores</h3>
+            <p class="text-gray-400 text-sm leading-relaxed mb-6">Reparos de correia dentada, junta de cabeçote, embreagem e retífica geral.</p>
+          </div>
+          <a href="#orcamento" onclick="preencherServico('Manutenção de Motores')" class="inline-flex items-center gap-2 text-brand-red hover:text-white font-semibold text-sm transition-colors">
+            Solicitar Orçamento <i class="fa-solid fa-chevron-right text-xs"></i>
+          </a>
+        </div>
+
+        <!-- Serviço 7 -->
+        <div class="glass-card rounded-2xl p-6 transition-all duration-300 flex flex-col justify-between group">
+          <div>
+            <div class="w-14 h-14 bg-red-950/50 border border-brand-red/30 rounded-xl flex items-center justify-center text-brand-red text-2xl mb-6 group-hover:scale-110 transition-transform">
+              <i class="fa-solid fa-temperature-arrow-down"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-3">Sistema de Arrefecimento</h3>
+            <p class="text-gray-400 text-sm leading-relaxed mb-6">Limpeza do radiador, substituição de aditivo, bomba d'água e válvula termostática.</p>
+          </div>
+          <a href="#orcamento" onclick="preencherServico('Sistema de Arrefecimento')" class="inline-flex items-center gap-2 text-brand-red hover:text-white font-semibold text-sm transition-colors">
+            Solicitar Orçamento <i class="fa-solid fa-chevron-right text-xs"></i>
+          </a>
+        </div>
+
+        <!-- Serviço 8 -->
+        <div class="glass-card rounded-2xl p-6 transition-all duration-300 flex flex-col justify-between group">
+          <div>
+            <div class="w-14 h-14 bg-red-950/50 border border-brand-red/30 rounded-xl flex items-center justify-center text-brand-red text-2xl mb-6 group-hover:scale-110 transition-transform">
+              <i class="fa-solid fa-screwdriver-wrench"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-3">Mecânica Geral</h3>
+            <p class="text-gray-400 text-sm leading-relaxed mb-6">Reparos de ignição, escapamentos, baterias, parte elétrica e serviços corretivos.</p>
+          </div>
+          <a href="#orcamento" onclick="preencherServico('Mecânica Geral')" class="inline-flex items-center gap-2 text-brand-red hover:text-white font-semibold text-sm transition-colors">
+            Solicitar Orçamento <i class="fa-solid fa-chevron-right text-xs"></i>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. SOBRE A OFICINA -->
+  <section id="sobre" class="py-24 bg-brand-black border-t border-brand-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        
+        <div class="relative">
+          <div class="rounded-2xl overflow-hidden border border-gray-800 shadow-2xl">
+            <img src="https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=1200&q=80" 
+                 alt="Mecânico trabalhando em motor" 
+                 class="w-full h-[400px] object-cover hover:scale-105 transition duration-500">
+          </div>
+          <div class="absolute -bottom-6 -right-6 w-2/3 hidden sm:block rounded-2xl overflow-hidden border-4 border-brand-black shadow-2xl">
+            <img src="https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?auto=format&fit=crop&w=800&q=80" 
+                 alt="Elevador de oficina mecânica" 
+                 class="w-full h-48 object-cover">
+          </div>
+        </div>
+
+        <div class="lg:pl-6">
+          <h2 class="text-xs font-bold uppercase tracking-widest text-brand-red mb-2">Sobre Nossa Empresa</h2>
+          <h3 class="text-3xl sm:text-4xl font-extrabold text-white mb-6">Tecnologia, Transparência e Foco na Sua Segurança</h3>
+          
+          <p class="text-gray-300 mb-4 leading-relaxed">
+            Nossa oficina combina infraestrutura moderna, equipamentos computadorizados e profissionais capacitados para oferecer soluções mecânicas completas para o seu veículo.
+          </p>
+          
+          <p class="text-gray-400 mb-8 leading-relaxed text-sm">
+            Trabalhamos com total clareza no orçamento antes de qualquer intervenção, priorizando sempre peças homologadas e a durabilidade dos serviços prestados.
+          </p>
+
+          <div class="space-y-4">
+            <div class="flex items-start gap-4">
+              <div class="w-8 h-8 rounded-lg bg-brand-red/20 text-brand-red flex items-center justify-center shrink-0 mt-1">
+                <i class="fa-solid fa-check"></i>
+              </div>
+              <div>
+                <h4 class="text-white font-bold text-sm">Orçamentos Claros</h4>
+                <p class="text-gray-400 text-xs">Aprovação prévia sem surpresas na entrega do seu veículo.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="w-8 h-8 rounded-lg bg-brand-red/20 text-brand-red flex items-center justify-center shrink-0 mt-1">
+                <i class="fa-solid fa-check"></i>
+              </div>
+              <div>
+                <h4 class="text-white font-bold text-sm">Ferramental Adequado</h4>
+                <p class="text-gray-400 text-xs">Diagnósticos por computador e leituras precisas de módulos.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. POR QUE ESCOLHER (DIFERENCIAIS) -->
+  <section id="diferenciais" class="py-24 bg-brand-dark">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <h2 class="text-xs font-bold uppercase tracking-widest text-brand-red mb-2">Diferenciais</h2>
+        <p class="text-3xl sm:text-4xl font-extrabold text-white">Por Que Escolher Nossa Oficina?</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
+        
+        <div class="bg-brand-black/60 p-6 rounded-2xl border border-gray-800 text-center flex flex-col items-center">
+          <div class="w-12 h-12 rounded-full bg-brand-red/10 text-brand-red flex items-center justify-center text-xl mb-4">
+            <i class="fa-solid fa-user-check"></i>
+          </div>
+          <h3 class="text-white font-bold text-base mb-2">Atendimento Personalizado</h3>
+          <p class="text-gray-400 text-xs leading-relaxed">Acompanhamento próximo de cada caso com foco na necessidade real.</p>
+        </div>
+
+        <div class="bg-brand-black/60 p-6 rounded-2xl border border-gray-800 text-center flex flex-col items-center">
+          <div class="w-12 h-12 rounded-full bg-brand-red/10 text-brand-red flex items-center justify-center text-xl mb-4">
+            <i class="fa-solid fa-file-invoice-dollar"></i>
+          </div>
+          <h3 class="text-white font-bold text-base mb-2">Transparência Total</h3>
+          <p class="text-gray-400 text-xs leading-relaxed">Detalhamento dos itens trocados e serviços aprovados previamente.</p>
+        </div>
+
+        <div class="bg-brand-black/60 p-6 rounded-2xl border border-gray-800 text-center flex flex-col items-center">
+          <div class="w-12 h-12 rounded-full bg-brand-red/10 text-brand-red flex items-center justify-center text-xl mb-4">
+            <i class="fa-solid fa-microchip"></i>
+          </div>
+          <h3 class="text-white font-bold text-base mb-2">Equipamentos Adequados</h3>
+          <p class="text-gray-400 text-xs leading-relaxed">Uso de aparelhos e ferramentas específicas para cada modelo.</p>
+        </div>
+
+        <div class="bg-brand-black/60 p-6 rounded-2xl border border-gray-800 text-center flex flex-col items-center">
+          <div class="w-12 h-12 rounded-full bg-brand-red/10 text-brand-red flex items-center justify-center text-xl mb-4">
+            <i class="fa-solid fa-award"></i>
+          </div>
+          <h3 class="text-white font-bold text-base mb-2">Garantia de Qualidade</h3>
+          <p class="text-gray-400 text-xs leading-relaxed">Apenas componentes e peças de alta procedência e durabilidade.</p>
+        </div>
+
+        <div class="bg-brand-black/60 p-6 rounded-2xl border border-gray-800 text-center flex flex-col items-center md:col-span-3 lg:col-span-1">
+          <div class="w-12 h-12 rounded-full bg-brand-red/10 text-brand-red flex items-center justify-center text-xl mb-4">
+            <i class="fa-solid fa-comments"></i>
+          </div>
+          <h3 class="text-white font-bold text-base mb-2">Comunicação Direta</h3>
+          <p class="text-gray-400 text-xs leading-relaxed">Aviso imediato do status do veículo pelo seu celular.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. GALERIA DE SERVIÇOS -->
+  <section id="galeria" class="py-24 bg-brand-black">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <h2 class="text-xs font-bold uppercase tracking-widest text-brand-red mb-2">Galeria</h2>
+        <p class="text-3xl sm:text-4xl font-extrabold text-white">Nossa Oficina em Ação</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        
+        <div class="group relative rounded-2xl overflow-hidden border border-gray-800 bg-brand-dark cursor-pointer h-64" onclick="openLightbox('https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=1200&q=80')">
+          <img src="https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=800&q=80" alt="Inspeção Veicular" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+            <span class="text-white font-semibold text-sm flex items-center gap-2"><i class="fa-solid fa-magnifying-glass-plus"></i> Inspeção de Segurança</span>
+          </div>
+        </div>
+
+        <div class="group relative rounded-2xl overflow-hidden border border-gray-800 bg-brand-dark cursor-pointer h-64" onclick="openLightbox('https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=1200&q=80')">
+          <img src="https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=800&q=80" alt="Manutenção de Motor" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+            <span class="text-white font-semibold text-sm flex items-center gap-2"><i class="fa-solid fa-magnifying-glass-plus"></i> Ajustes de Motor</span>
+          </div>
+        </div>
+
+        <div class="group relative rounded-2xl overflow-hidden border border-gray-800 bg-brand-dark cursor-pointer h-64" onclick="openLightbox('https://images.unsplash.com/photo-1530046339160-ce3e530c7d2f?auto=format&fit=crop&w=1200&q=80')">
+          <img src="https://images.unsplash.com/photo-1530046339160-ce3e530c7d2f?auto=format&fit=crop&w=800&q=80" alt="Manutenção de Freios" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+            <span class="text-white font-semibold text-sm flex items-center gap-2"><i class="fa-solid fa-magnifying-glass-plus"></i> Sistema de Freios</span>
+          </div>
+        </div>
+
+        <div class="group relative rounded-2xl overflow-hidden border border-gray-800 bg-brand-dark cursor-pointer h-64" onclick="openLightbox('https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?auto=format&fit=crop&w=1200&q=80')">
+          <img src="https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?auto=format&fit=crop&w=800&q=80" alt="Elevador e Ferramentas" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+            <span class="text-white font-semibold text-sm flex items-center gap-2"><i class="fa-solid fa-magnifying-glass-plus"></i> Box Mecânico</span>
+          </div>
+        </div>
+
+        <div class="group relative rounded-2xl overflow-hidden border border-gray-800 bg-brand-dark cursor-pointer h-64" onclick="openLightbox('https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=1200&q=80')">
+          <img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=800&q=80" alt="Diagnóstico Computadorizado" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+            <span class="text-white font-semibold text-sm flex items-center gap-2"><i class="fa-solid fa-magnifying-glass-plus"></i> Diagnóstico Computadorizado</span>
+          </div>
+        </div>
+
+        <div class="group relative rounded-2xl overflow-hidden border border-gray-800 bg-brand-dark cursor-pointer h-64" onclick="openLightbox('https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80')">
+          <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&q=80" alt="Veículo Pronto" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+            <span class="text-white font-semibold text-sm flex items-center gap-2"><i class="fa-solid fa-magnifying-glass-plus"></i> Veículo Pronto</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- MODAL LIGHTBOX -->
+  <div id="lightbox" class="fixed inset-0 z-50 bg-black/90 hidden flex items-center justify-center p-4">
+    <button onclick="closeLightbox()" class="absolute top-6 right-6 text-white text-3xl hover:text-brand-red"><i class="fa-solid fa-xmark"></i></button>
+    <img id="lightbox-img" src="" alt="Ampliada" class="max-w-full max-h-[90vh] rounded-xl object-contain border border-gray-700">
+  </div>
+
+  <!-- 6. AVALIAÇÕES -->
+  <section id="avaliacoes" class="py-24 bg-brand-dark border-t border-brand-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <h2 class="text-xs font-bold uppercase tracking-widest text-brand-red mb-2">Avaliações</h2>
+        <p class="text-3xl sm:text-4xl font-extrabold text-white">Sua Opinião é Importante</p>
+      </div>
+
+      <div class="max-w-3xl mx-auto bg-brand-card p-8 sm:p-12 rounded-3xl border border-gray-800 text-center relative overflow-hidden shadow-2xl">
+        <div class="w-16 h-16 bg-brand-red/10 text-brand-red rounded-full flex items-center justify-center text-3xl mx-auto mb-6">
+          <i class="fa-solid fa-star"></i>
+        </div>
+
+        <h3 class="text-2xl font-bold text-white mb-4">Venha Conhecer Nosso Trabalho</h3>
+        <p class="text-gray-300 text-base max-w-xl mx-auto mb-8 leading-relaxed">
+          Traga seu veículo para uma avaliação técnica sem compromisso e comprove a qualidade do nosso atendimento.
+        </p>
+
+        <a href="#orcamento" class="inline-flex items-center gap-2 bg-brand-red hover:bg-brand-redHover text-white px-8 py-3.5 rounded-xl font-bold transition shadow-lg shadow-red-900/30">
+          <i class="fa-brands fa-whatsapp text-lg"></i> Agendar Atendimento
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 7. FORMULÁRIO DE ORÇAMENTO WHATSAPP -->
+  <section id="orcamento" class="py-24 bg-brand-black relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <div class="lg:col-span-5">
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-500/10 border border-green-500/30 text-green-500 text-xs font-semibold mb-4">
+            <i class="fa-solid fa-bolt"></i> Resposta pelo WhatsApp
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-white mb-6">Solicite seu Orçamento sem Compromisso</h2>
+          <p class="text-gray-300 text-base leading-relaxed mb-8">
+            Preencha os dados do seu veículo e o serviço desejado. As informações serão organizadas e enviadas diretamente para a conversa do nosso WhatsApp.
+          </p>
+
+          <div class="space-y-4">
+            <div class="flex items-center gap-3 text-gray-300 text-sm">
+              <i class="fa-solid fa-circle-check text-brand-red"></i> Sem burocracia ou formulários extensos
+            </div>
+            <div class="flex items-center gap-3 text-gray-300 text-sm">
+              <i class="fa-solid fa-circle-check text-brand-red"></i> Informações claras sobre peças e serviços
+            </div>
+            <div class="flex items-center gap-3 text-gray-300 text-sm">
+              <i class="fa-solid fa-circle-check text-brand-red"></i> Resposta rápida diretamente da equipe técnica
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-7 bg-brand-card p-6 sm:p-10 rounded-3xl border border-gray-800 shadow-2xl">
+          <form id="whatsappForm" onsubmit="enviarOrcamentoWhatsApp(event)" class="space-y-4">
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="cliente_nome" class="block text-xs font-bold uppercase text-gray-400 mb-2">Seu Nome *</label>
+                <input type="text" id="cliente_nome" required placeholder="Ex: Carlos Silva" class="w-full bg-brand-black border border-gray-700 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-brand-red text-sm">
+              </div>
+              <div>
+                <label for="cliente_telefone" class="block text-xs font-bold uppercase text-gray-400 mb-2">Telefone / WhatsApp *</label>
+                <input type="tel" id="cliente_telefone" required placeholder="Ex: (11) 99999-9999" class="w-full bg-brand-black border border-gray-700 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-brand-red text-sm">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="veiculo_modelo" class="block text-xs font-bold uppercase text-gray-400 mb-2">Modelo do Veículo *</label>
+                <input type="text" id="veiculo_modelo" required placeholder="Ex: Honda Civic 2.0" class="w-full bg-brand-black border border-gray-700 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-brand-red text-sm">
+              </div>
+              <div>
+                <label for="veiculo_ano" class="block text-xs font-bold uppercase text-gray-400 mb-2">Ano do Veículo *</label>
+                <input type="text" id="veiculo_ano" required placeholder="Ex: 2020" class="w-full bg-brand-black border border-gray-700 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-brand-red text-sm">
+              </div>
+            </div>
+
+            <div>
+              <label for="servico_desejado" class="block text-xs font-bold uppercase text-gray-400 mb-2">Serviço Desejado *</label>
+              <select id="servico_desejado" required class="w-full bg-brand-black border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-red text-sm">
+                <option value="" disabled selected>Selecione o serviço...</option>
+                <option value="Revisão Preventiva">Revisão Preventiva</option>
+                <option value="Troca de Óleo e Filtros">Troca de Óleo e Filtros</option>
+                <option value="Diagnóstico Eletrônico">Diagnóstico Eletrônico</option>
+                <option value="Manutenção de Freios">Manutenção de Freios</option>
+                <option value="Suspensão e Direção">Suspensão e Direção</option>
+                <option value="Manutenção de Motores">Manutenção de Motores</option>
+                <option value="Sistema de Arrefecimento">Sistema de Arrefecimento</option>
+                <option value="Mecânica Geral">Serviços de Mecânica Geral</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="problema_descricao" class="block text-xs font-bold uppercase text-gray-400 mb-2">Descrição do Problema ou Observações</label>
+              <textarea id="problema_descricao" rows="3" placeholder="Descreva ruídos, luzes acesas no painel ou outras observações..." class="w-full bg-brand-black border border-gray-700 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-brand-red text-sm"></textarea>
+            </div>
+
+            <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-4 rounded-xl transition-all shadow-lg shadow-green-950/40 flex items-center justify-center gap-3 text-base">
+              <i class="fa-brands fa-whatsapp text-2xl"></i>
+              Enviar Orçamento pelo WhatsApp
+            </button>
+          </form>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 8. LOCALIZAÇÃO E CONTATO (COM GOOGLE MAPS SEM API KEY) -->
+  <section id="contato" class="py-24 bg-brand-dark border-t border-brand-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <h2 class="text-xs font-bold uppercase tracking-widest text-brand-red mb-2">Onde Estamos</h2>
+        <p class="text-3xl sm:text-4xl font-extrabold text-white">Localização & Contato</p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+        
+        <!-- Endereço -->
+        <div class="bg-brand-black p-8 rounded-2xl border border-gray-800 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 bg-brand-red/10 text-brand-red rounded-xl flex items-center justify-center text-xl mb-6">
+              <i class="fa-solid fa-location-dot"></i>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">Endereço</h3>
+            <p id="info-endereco" class="text-gray-400 text-sm leading-relaxed mb-6"></p>
+          </div>
+          <a id="btn-maps" href="#" target="_blank" class="inline-flex items-center gap-2 text-brand-red font-semibold text-sm hover:underline">
+            Abrir no Google Maps <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+          </a>
+        </div>
+
+        <!-- Telefone & WhatsApp -->
+        <div class="bg-brand-black p-8 rounded-2xl border border-gray-800 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 bg-brand-red/10 text-brand-red rounded-xl flex items-center justify-center text-xl mb-6">
+              <i class="fa-solid fa-phone"></i>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">Telefone & WhatsApp</h3>
+            <p id="info-telefone" class="text-gray-400 text-sm leading-relaxed mb-6"></p>
+          </div>
+          <div class="flex gap-4">
+            <a id="btn-ligar" href="#" class="text-white bg-gray-800 hover:bg-gray-700 px-4 py-2.5 rounded-lg text-xs font-bold flex items-center gap-2">
+              <i class="fa-solid fa-phone-flip"></i> Ligar
+            </a>
+            <a id="btn-whats-contato" href="#" target="_blank" class="text-white bg-green-600 hover:bg-green-700 px-4 py-2.5 rounded-lg text-xs font-bold flex items-center gap-2">
+              <i class="fa-brands fa-whatsapp"></i> WhatsApp
+            </a>
+          </div>
+        </div>
+
+        <!-- Horário -->
+        <div class="bg-brand-black p-8 rounded-2xl border border-gray-800 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 bg-brand-red/10 text-brand-red rounded-xl flex items-center justify-center text-xl mb-6">
+              <i class="fa-solid fa-clock"></i>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">Horário de Funcionamento</h3>
+            <p id="info-semana" class="text-gray-400 text-sm mb-1"></p>
+            <p id="info-sabado" class="text-gray-400 text-sm mb-6"></p>
+          </div>
+          <span class="text-xs text-green-500 font-semibold flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span> Atendimento em horário comercial
+          </span>
+        </div>
+
+      </div>
+
+      <!-- MAPA DO GOOGLE INCORPORADO (SEM DEPENDÊNCIA DE API KEY) -->
+      <div class="w-full h-96 rounded-2xl overflow-hidden border border-gray-800 shadow-xl relative bg-brand-black">
+        <iframe 
+          id="google-maps-embed"
+          title="Localização no Google Maps"
+          width="100%" 
+          height="100%" 
+          style="border:0;" 
+          loading="lazy" 
+          allowfullscreen="" 
+          referrerpolicy="no-referrer-when-downgrade"
+          src="">
+        </iframe>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- RODAPÉ -->
+  <footer class="bg-brand-black text-gray-400 py-16 border-t border-brand-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+        
+        <div class="space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 bg-brand-red rounded-lg flex items-center justify-center text-white font-bold">
+              <i class="fa-solid fa-wrench"></i>
+            </div>
+            <span class="text-xl font-extrabold text-white">Auto<span class="text-brand-red">Tech</span></span>
+          </div>
+          <p class="text-xs leading-relaxed text-gray-400">
+            Oficina mecânica especializada em manutenção preventiva, diagnóstico computadorizado e serviços automotivos com transparência.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="text-white font-bold text-sm mb-4">Navegação</h4>
+          <ul class="space-y-2 text-xs">
+            <li><a href="#inicio" class="hover:text-brand-red transition">Início</a></li>
+            <li><a href="#servicos" class="hover:text-brand-red transition">Serviços</a></li>
+            <li><a href="#sobre" class="hover:text-brand-red transition">Sobre Nós</a></li>
+            <li><a href="#galeria" class="hover:text-brand-red transition">Galeria</a></li>
+            <li><a href="#orcamento" class="hover:text-brand-red transition">Solicitar Orçamento</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-white font-bold text-sm mb-4">Serviços</h4>
+          <ul class="space-y-2 text-xs">
+            <li><a href="#servicos" class="hover:text-brand-red transition">Diagnóstico Eletrônico</a></li>
+            <li><a href="#servicos" class="hover:text-brand-red transition">Revisão Preventiva</a></li>
+            <li><a href="#servicos" class="hover:text-brand-red transition">Troca de Óleo e Filtros</a></li>
+            <li><a href="#servicos" class="hover:text-brand-red transition">Manutenção de Freios</a></li>
+            <li><a href="#servicos" class="hover:text-brand-red transition">Suspensão e Direção</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-white font-bold text-sm mb-4">Redes Sociais</h4>
+          <div class="flex gap-3 mb-6">
+            <a href="#" class="w-9 h-9 bg-brand-dark rounded-lg border border-gray-800 flex items-center justify-center text-gray-300 hover:text-white hover:bg-brand-red hover:border-brand-red transition">
+              <i class="fa-brands fa-instagram"></i>
+            </a>
+            <a href="#" class="w-9 h-9 bg-brand-dark rounded-lg border border-gray-800 flex items-center justify-center text-gray-300 hover:text-white hover:bg-brand-red hover:border-brand-red transition">
+              <i class="fa-brands fa-facebook-f"></i>
+            </a>
+            <a href="#" class="w-9 h-9 bg-brand-dark rounded-lg border border-gray-800 flex items-center justify-center text-gray-300 hover:text-white hover:bg-brand-red hover:border-brand-red transition">
+              <i class="fa-brands fa-youtube"></i>
+            </a>
+          </div>
+          <p class="text-[11px] text-gray-500">Demonstração comercial para oficinas mecânicas e centros automotivos.</p>
+        </div>
+
+      </div>
+
+      <div class="pt-8 border-t border-gray-800/60 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500">
+        <p>&copy; <span id="year"></span> AutoTech Centro Automotivo. Todos os direitos reservados.</p>
+        <p>Qualidade & Confiança Automotiva</p>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- BOTÃO FLUTUANTE DO WHATSAPP -->
+  <div class="fixed bottom-6 right-6 z-50">
+    <a id="whatsapp-floating-btn" href="#" target="_blank" aria-label="Falar pelo WhatsApp" 
+       class="relative group w-14 h-14 bg-green-500 text-white rounded-full flex items-center justify-center text-3xl shadow-2xl hover:bg-green-600 transition-transform transform hover:scale-110">
+      <span class="absolute inset-0 rounded-full bg-green-500 whatsapp-pulse pointer-events-none"></span>
+      <i class="fa-brands fa-whatsapp relative z-10"></i>
+    </a>
+  </div>
+
+  <!-- JAVASCRIPT DE LÓGICA E INTERAÇÕES -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      
+      // Atualizar ano dinamicamente no footer
+      document.getElementById("year").innerText = new Date().getFullYear();
+
+      // Atualizar dados do objeto de configuração na página
+      document.getElementById("info-endereco").innerText = CONFIG_OFICINA.endereco;
+      document.getElementById("info-telefone").innerText = CONFIG_OFICINA.telefone;
+      document.getElementById("info-semana").innerText = CONFIG_OFICINA.horarioSemana;
+      document.getElementById("info-sabado").innerText = CONFIG_OFICINA.horarioSabado;
+
+      // URL base do WhatsApp para conversa direta
+      const whatsUrlBase = `https://wa.me/${CONFIG_OFICINA.whatsappNumber}?text=${encodeURIComponent("Olá! Gostaria de obter informações sobre os serviços da oficina.")}`;
+      
+      document.getElementById("whatsapp-floating-btn").href = whatsUrlBase;
+      document.getElementById("btn-whats-contato").href = whatsUrlBase;
+      document.getElementById("btn-maps").href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(CONFIG_OFICINA.endereco)}`;
+      document.getElementById("btn-ligar").href = `tel:${CONFIG_OFICINA.whatsappNumber}`;
+
+      // Configuração do Google Maps Embed sem necessidade de API Key
+      const googleMapsEmbedUrl = `https://maps.google.com/maps?q=${encodeURIComponent(CONFIG_OFICINA.endereco)}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
+      document.getElementById("google-maps-embed").src = googleMapsEmbedUrl;
+
+      // Mobile Menu
+      const menuBtn = document.getElementById("mobile-menu-btn");
+      const mobileMenu = document.getElementById("mobile-menu");
+      const mobileLinks = document.querySelectorAll(".mobile-link");
+
+      menuBtn.addEventListener("click", () => {
+        mobileMenu.classList.toggle("hidden");
+      });
+
+      mobileLinks.forEach(link => {
+        link.addEventListener("click", () => {
+          mobileMenu.classList.add("hidden");
+        });
+      });
+    });
+
+    // Função para preencher serviço selecionado no formulário
+    function preencherServico(nomeServico) {
+      const select = document.getElementById("servico_desejado");
+      if (select) {
+        select.value = nomeServico;
+      }
+    }
+
+    // Função de envio de dados para o WhatsApp
+    function enviarOrcamentoWhatsApp(event) {
+      event.preventDefault();
+
+      const nome = document.getElementById("cliente_nome").value.trim();
+      const telefone = document.getElementById("cliente_telefone").value.trim();
+      const modelo = document.getElementById("veiculo_modelo").value.trim();
+      const ano = document.getElementById("veiculo_ano").value.trim();
+      const servico = document.getElementById("servico_desejado").value;
+      const descricao = document.getElementById("problema_descricao").value.trim();
+
+      let mensagem = `*SOLICITAÇÃO DE ORÇAMENTO - WEBSITE*\n\n`;
+      mensagem += `*Cliente:* ${nome}\n`;
+      mensagem += `*Telefone:* ${telefone}\n`;
+      mensagem += `*Veículo:* ${modelo} (${ano})\n`;
+      mensagem += `*Serviço Desejado:* ${servico}\n`;
+      if (descricao) {
+        mensagem += `*Observações:* ${descricao}\n`;
+      }
+
+      const urlWhatsApp = `https://wa.me/${CONFIG_OFICINA.whatsappNumber}?text=${encodeURIComponent(mensagem)}`;
+      window.open(urlWhatsApp, '_blank');
+    }
+
+    // Modal Lightbox da Galeria
+    function openLightbox(imageUrl) {
+      const lightbox = document.getElementById("lightbox");
+      const lightboxImg = document.getElementById("lightbox-img");
+      lightboxImg.src = imageUrl;
+      lightbox.classList.remove("hidden");
+    }
+
+    function closeLightbox() {
+      const lightbox = document.getElementById("lightbox");
+      lightbox.classList.add("hidden");
+    }
+  </script>
+</body>
+</html>
